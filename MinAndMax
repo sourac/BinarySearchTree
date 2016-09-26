@@ -1,0 +1,91 @@
+package com.atul.ds;
+
+public class MinimumInBST {
+	Node root;
+
+	public MinimumInBST() {
+		this.root = null;
+	}
+
+	public static void main(String[] args) {
+		MinimumInBST tree = new MinimumInBST();
+		tree.insert(50);
+		tree.insert(30);
+		tree.insert(20);
+		tree.insert(40);
+		tree.insert(70);
+		tree.insert(60);
+		tree.insert(80);
+		tree.inorder();
+		tree.minimum();
+		tree.maximum();
+	}
+
+	private void maximum() {
+		int num = maximumElement(root);
+		System.out.println("max element in BST is  : " + num);
+
+	}
+
+	private int maximumElement(Node root) {
+		if (root == null) {
+			return 0;
+		}
+		while (root.right != null) {
+			root = root.right;
+		}
+		return root.key;
+	}
+
+	private void inorder() {
+		inorderRec(root);
+	}
+
+	private void inorderRec(Node root) {
+
+		if (root != null) {
+			inorderRec(root.left);
+			System.out.print(root.key + " ");
+			inorderRec(root.right);
+		}
+	}
+
+	private void minimum() {
+		int num = minimumElement(root);
+		System.out.println(" ");
+		System.out.println("min element in the BST : " + num);
+
+	}
+
+	private int minimumElement(Node root) {
+		if (root == null) {
+			return 0;
+		}
+		while (root.left != null) {
+			root = root.left;
+		}
+		return root.key;
+
+	}
+
+	private void insert(int key) {
+		root = inserRec(root, key);
+
+	}
+
+	private Node inserRec(Node root, int key) {
+
+		if (root == null) {
+			root = new Node(key);
+			return root;
+		}
+		if (key < root.key) {
+			root.left = inserRec(root.left, key);
+		} else if (key > root.key) {
+			root.right = inserRec(root.right, key);
+		}
+
+		return root;
+	}
+
+}
