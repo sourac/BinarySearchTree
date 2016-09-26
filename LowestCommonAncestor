@@ -39,8 +39,10 @@ public class LCABST {
 		 */
 		if (n1 > root.key && n2 > root.key)
 			return lca(root.right, n1, n2);
-		
+		/*when n1 < root and n2 greater than the root. then this node is the lca*/	
+		if(n1 < root.key  && n2 > root.key)	
 		return root;
+	return root;
 	}
 
 }
