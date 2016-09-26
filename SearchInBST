@@ -1,0 +1,78 @@
+package com.atul.ds;
+
+public class BSTInsertion {
+	Node root;
+
+	public BSTInsertion() {
+		this.root = null;
+	}
+
+	public static void main(String[] args) {
+		BSTInsertion tree = new BSTInsertion();
+		tree.insert(50);
+		tree.insert(30);
+		tree.insert(20);
+		tree.insert(40);
+		tree.insert(70);
+		tree.insert(60);
+		tree.insert(80);
+		tree.inorder();
+		tree.search(90);
+	}
+
+	private void search(int key) {
+		Node temp=searchRec(root,key);
+		if(temp!=null){
+			System.out.println("element present in the tree");
+		}
+		else
+		{
+			System.out.println("not present in the BST");
+		}
+		
+	}
+
+	private Node searchRec(Node root, int key) {
+		if(root==null || root.key==key)
+			return root;
+		if(key<root.key)
+			return searchRec(root.left, key);
+		else
+		return searchRec(root.right, key);
+	}
+
+	private void inorder() {
+		inorderRec(root);
+	}
+
+	private void inorderRec(Node root) {
+
+		if(root!=null){
+			inorderRec(root.left);
+			System.out.print(root.key+" ");
+			inorderRec(root.right);
+		}
+	
+	}
+
+	private void insert(int key) {
+		root = inserRec(root, key);
+
+	}
+
+	private Node inserRec(Node root, int key) {
+
+		if (root == null) {
+			root = new Node(key);
+			return root;
+		}
+		if (key < root.key) {
+			root.left = inserRec(root.left, key);
+		} else if (key > root.key) {
+			root.right = inserRec(root.right, key);
+		}
+
+		return root;
+	}
+
+}
