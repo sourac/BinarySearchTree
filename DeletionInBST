@@ -1,0 +1,106 @@
+package com.atul.ds;
+
+public class DeletionInBST {
+
+	Node root;
+
+	public DeletionInBST() {
+		this.root = null;
+	}
+
+	public static void main(String[] args) {
+		DeletionInBST tree = new DeletionInBST();
+		tree.insert(50);
+		tree.insert(30);
+		tree.insert(20);
+		tree.insert(40);
+		tree.insert(70);
+		tree.insert(60);
+		tree.insert(80);
+		System.out.println("InOrder Traversal of the given tree");
+		tree.inorder();
+
+		System.out.println("deleting 20");
+		tree.delete(20);
+		tree.inorder();
+	}
+
+	private void delete(int key) {
+		root = deleteRec(root, key);
+
+	}
+
+	private Node deleteRec(Node root, int key) {
+		/* base case for the tree if it's empty */
+		if (root == null)
+			return null;
+		/* if the key to be deleted is less than root, recur to the left */
+		if (key < root.key)
+			root.left = deleteRec(root.left, key);
+		/* if the key to be deleted is greater than root, recur to the right */
+		else if (key > root.key)
+			root.right = deleteRec(root.right, key);
+		/*
+		 * if the key is same as the root key,then this is the node to be
+		 * deleted
+		 */
+		else {
+			// node with one or no child
+			if (root.left == null)
+				return root.right;
+			else if (root.right == null)
+				return root.right;
+			// node with two children, Getting the inorderSuccessor. i.e
+			// smallest in the right subtree
+
+			root.key = minValue(root.right);
+			root.right = deleteRec(root.right, root.key);
+
+		}
+
+		return root;
+	}
+
+	private int minValue(Node root) {
+		if (root == null)
+			return 0;
+		else
+			return minValue(root.left);
+	}
+
+	private void insert(int key) {
+		root = inserRec(root, key);
+
+	}
+
+	private Node inserRec(Node root, int key) {
+		if (root == null) {
+			root = new Node(key);
+			// i++;
+			return root;
+		}
+		if (key < root.key) {
+			root.left = inserRec(root.left, key);
+		} else if (key > root.key) {
+			root.right = inserRec(root.right, key);
+		}
+
+		return root;
+	}
+
+	private void inorder() {
+		inorderRec(root);
+	}
+
+	private void inorderRec(Node root) {
+
+		if (root != null) {
+			inorderRec(root.left);
+			System.out.print(root.key + " ");
+
+			inorderRec(root.right);
+		}
+
+	}
+
+}
